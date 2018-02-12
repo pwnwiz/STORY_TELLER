@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 
 void producer()
 {
@@ -52,34 +53,59 @@ void pray() // choice 1
 	producer();
 }
 
+int canStealPotion(char *stealPotion)
+{
+	int len = strlen(stealPotion);
+	char *potionName[4] = {"Red", "Blue", "Purple", "Yellow"};
+
+	for(int i=0; i<4; i++)
+		if(!strncmp(stealPotion, potionName[i], len))
+			return 1;
+	return 0;
+}
+
 void potion() // choice 2
 {
+	char str[7];
+
 	printf("You have decided to go to Poseion's palace to steal the potion\n\n");
 	printf("Oh!! There are various potions. Red, Blue, Purple, Yellow....\n\n");
 	printf("Which one will you choose???\n\n");
+
 	// 여기서 버퍼 오버플로우 취약점 안터짐 (크기는 yellow까지..)
 	// 만약에 Red, Blue, Purple, Yellow 가 입력되면 아래 실행
-	// if()
-	printf("I have chosen ( -- )!\n\n");
-	printf("Let me get out quickly before being caught.\n\n");
-	printf("YOU! THIEF!!! ROP!!!\n\n"); // hint
-	ending();
-	// else
-	printf("YOU! THIEF!!!\n\n");
-	printf("You have been put into the jail\n\n");
-	producer();
+
+	int potionStrLen = read(0, str, sizeof(str));
+	str[potionStrLen - 1] = '\0';
+
+	if(canStealPotion(str)){
+		printf("I have chosen ( %s )!\n\n", str);
+		printf("Let me get out quickly before being caught.\n\n");
+		printf("YOU! THIEF!!! ROP!!!\n\n"); // hint
+		ending();
+	}
+	else{
+		printf("YOU! THIEF!!!\n\n");
+		printf("You have been put into the jail\n\n");
+		producer();
+	}
 
 }
 
 
 void persuade() // choice 3
 {
+	char str[256];
+
 	printf("Hey Human! What the hell are you doing here?\n\n");
 	printf("Your highness. Please save us.\n\n");
 	printf("Only with your help, we can solve this disaster.\n\n");
 	printf("Hmm.. I have to give up my beautiful eyes if I help you. That's not what I want.\n\n");
 	printf("If I do that, What will you give?\n\n");
 	// 자유 입력 (여기서 버퍼 오버플로우 취약점 터짐) 
+
+	read(0, str, sizeof(str));
+
 	printf("HMM... Nope\n\n");
 	producer();
 }
@@ -90,17 +116,18 @@ int main()
 
 	intro();
 	choice=select();
-	if(choice==1)
+
+	switch (choice)
 	{
-		pray();
+		case 1:
+			pray(); break;
+		case 2:
+			potion(); break;
+		case 3:
+			persuade(); break;	
+		default:
+			printf("Wrong input!!!\n");
 	}
-	else if(choice==2)
-	{
-		potion();
-	}
-	else if(choice==3)
-	{
-		persuade();
-	}
+
 	return 0;
 }
