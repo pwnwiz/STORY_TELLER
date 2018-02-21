@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 void producer()
 {
@@ -104,9 +105,11 @@ void persuade() // choice 3
 	printf("If I do that, What will you give?\n\n");
 	// 자유 입력 (여기서 버퍼 오버플로우 취약점 터짐) 
 
-	read(0, str, sizeof(str));
+	read(0, str, 300);
 
-	printf("HMM... Nope\n\n");
+	write(1, str, strlen(str + 1));
+
+	printf("\nHMM... Nope\n\n");
 	producer();
 }
 
