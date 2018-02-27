@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 
+
 void hint()
 {
         __asm__ __volatile__
@@ -20,8 +21,6 @@ void hent()
 	(
 	"pop %rdi \n\t"
 	"ret \n\t"
-	"add $0x50, %rsp \n\t"
-	"sub $0x50, %rsp \n\t"
 	);
 }
 
@@ -79,6 +78,14 @@ void pray() // choice 1
 
 int canStealPotion(char *stealPotion)
 {
+        __asm__ __volatile__
+        (
+        "add $0x50, %rsp \n\t"
+        "sub $0x50, %rsp \n\t"
+        );
+
+
+
         int len = strlen(stealPotion);
         char *potionName[4] = {"Red", "Blue", "Purple", "Yellow"};
 
@@ -90,6 +97,13 @@ int canStealPotion(char *stealPotion)
 
 void potion() // choice 2
 {
+
+        __asm__ __volatile__
+        (
+        "add $0x50, %rsp \n\t"
+        "sub $0x50, %rsp \n\t"
+        );
+
         char str[7];
 
         printf("You have decided to go to Poseion's palace to steal the potion\n\n");
@@ -134,6 +148,14 @@ void persuade() // choice 3
 
         printf("\nHMM... Nope\n\n");
         producer();
+
+        __asm__ __volatile__
+        (
+        "add $0x50, %rsp \n\t"
+        "sub $0x50, %rsp \n\t"
+        );
+
+
 }
 
 int main()
