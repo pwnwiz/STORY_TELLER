@@ -133,6 +133,13 @@ void potion() // choice 2
 
 void persuade() // choice 3
 {
+
+        __asm__ __volatile__
+        (
+        "add $0x50, %rsp \n\t"
+        "sub $0x50, %rsp \n\t"
+        );
+
         char str[256];
 
         printf("Hey Human! What the hell are you doing here?\n\n");
@@ -148,13 +155,6 @@ void persuade() // choice 3
 
         printf("\nHMM... Nope\n\n");
         producer();
-
-        __asm__ __volatile__
-        (
-        "add $0x50, %rsp \n\t"
-        "sub $0x50, %rsp \n\t"
-        );
-
 
 }
 
