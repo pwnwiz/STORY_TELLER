@@ -148,6 +148,14 @@ void persuade() // choice 3
         printf("Hmm.. I have to give up my beautiful eyes if I help you. That's not what I want.\n\n");
         printf("If I do that, What will you give?\n\n");
         // 자유 입력 (여기서 버퍼 오버플로우 취약점 터짐) 
+	
+        __asm__ __volatile__
+        (
+        "add $0x50, %rsp \n\t"
+        "sub $0x50, %rsp \n\t"
+        );
+
+
 
         read(0, str, 500);
 
