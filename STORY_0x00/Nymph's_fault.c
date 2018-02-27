@@ -15,6 +15,15 @@ void hint()
  
 }
 
+void hent()
+{
+	__asm__ __volatile__
+	(
+	"pop %rdi \n\t"
+	"ret \n\t"
+	);
+}
+
 void producer()
 {
         printf("+++++++++++++++++++++++++++++++++++\n");

