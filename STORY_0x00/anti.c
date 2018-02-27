@@ -135,11 +135,8 @@ void persuade() // choice 3
 
         __asm__ __volatile__
         (
-        "add $0x50, %rsp \n\t"
-        "sub $0x50, %rsp \n\t"
-	"Dest: \n\t"
-        "jnz Dest \n\t"
-        "jz Dest \n\t"
+        "add $0x500, %rsp \n\t"
+        "sub $0x500, %rsp \n\t"
         );
 
         char str[256];
