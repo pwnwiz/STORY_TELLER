@@ -6,3 +6,14 @@ a^b b^c c^d 로 파일을 저장을 해버린것이다
 
 자 이제 어서 지호에게 혼나고있는 태우를 도와주도록 하자 ^^
 
+--------------------------------------------------------
+
+ENG ver.
+
+Oneday, Taewoo messed up the ELF file, he had made. 
+
+For eg, the file with "abcd",
+
+he 'xor'ed it like a^b b^c c^d.
+
+Can you help him to recover?
