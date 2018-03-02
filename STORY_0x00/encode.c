@@ -3,7 +3,7 @@
 int main()
 {
 	FILE *fp = fopen("./Nymph\'s_fault", "r");
-	FILE *fp2 = fopen("./Nymph\'s_fault2", "w");
+	FILE *fp2 = fopen("./Nymph\'s_fault_encrypt", "w");
 	char ch, ch1, ch2;
 
 	fread(&ch, 1, 1, fp);
