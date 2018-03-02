@@ -29,6 +29,8 @@ void producer()
         printf("+++++++++++++++++++++++++++++++++++\n");
         printf("  prod by pwnWiz, Taewoo, oiehso0\n");  
         printf("+++++++++++++++++++++++++++++++++++\n\n");
+
+        fflush(stdout);
 }
 
 int select()
@@ -39,8 +41,12 @@ int select()
         printf("2. Steal the potion from Poseidon\n");
         printf("3. Persuade Nymph to give up something at the expense of life of lotus\n\n");
         printf("What is your decision??\n\n");
+
+        fflush(stdout);
+
         scanf("%d", &choice);
         printf("\n");
+
         return choice;
 }
 
@@ -55,6 +61,8 @@ void intro()
         printf("The lotus which protects city from devils finally withered and humans lost their light.\n\n");
         printf("To solve this problem, the Nymph has to be forgiven by the only god.\n\n");
         printf("Luckily, You have revealed that only way for her to be granted amnesty is that revival of the lotus.\n\n");
+
+        fflush(stdout);
 }
 
 void ending()
@@ -62,7 +70,7 @@ void ending()
         printf("You have saved the lotus with potion and the world became peaceful as before.\n\n");
  printf("And the Nymph will stay forever filled with regrets waiting to die alone\n\n");
         producer();
-
+        fflush(stdout);
 }
 
 void pray() // choice 1
@@ -74,6 +82,7 @@ void pray() // choice 1
         printf("But god said NOTHING :<\n\n");
         printf("This was the not the BEST choice.\n\n");
         producer();
+        fflush(stdout);
 }
 
 int canStealPotion(char *stealPotion)
@@ -109,6 +118,8 @@ void potion() // choice 2
         printf("Oh!! There are various potions. Red, Blue, Purple, Yellow....\n\n");
         printf("Which one will you choose???\n\n");
 
+        fflush(stdout);
+
         // 여기서 버퍼 오버플로우 취약점 안터짐 (크기는 yellow까지..)
         // 만약에 Red, Blue, Purple, Yellow 가 입력되면 아래 실행
 
@@ -126,7 +137,8 @@ void potion() // choice 2
                 printf("You have been put into the jail\n\n");
                 producer();
         }
-
+        
+        fflush(stdout);
 }
 
 
@@ -146,6 +158,8 @@ void persuade() // choice 3
         printf("Only with your help, we can solve this disaster.\n\n");
         printf("Hmm.. I have to give up my beautiful eyes if I help you. That's not what I want.\n\n");
         printf("If I do that, What will you give?\n\n");
+
+        fflush(stdout);
         // 자유 입력 (여기서 버퍼 오버플로우 취약점 터짐) 
 	
         read(0, str, 500);
@@ -175,6 +189,7 @@ int main()
                 default:
                         printf("Wrong input!!!\n");
         }
+        fflush(stdout);
 
         return 0;
 }
