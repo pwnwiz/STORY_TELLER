@@ -11,8 +11,8 @@ print("\n")
 #plt_read = 0x400630
 #plt_write = 0x400600
 
-r = process("./anti")
-e = ELF("./anti")
+r = process("./Nymph\'s_fault")
+e = ELF("./Nymph\'s_fault")
 
 plt_read = e.plt['read']
 plt_write = e.plt['write']

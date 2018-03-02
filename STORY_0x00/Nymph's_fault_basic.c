@@ -27,7 +27,7 @@ void hent()
 void producer()
 {
         printf("+++++++++++++++++++++++++++++++++++\n");
-        printf("  prod by pwnWiz, Taewoo, oiehso0\n");  
+        printf("  prod by pwnWiz, Taewoo, OIEHSOO\n");  
         printf("+++++++++++++++++++++++++++++++++++\n\n");
 }
 
@@ -78,13 +78,6 @@ void pray() // choice 1
 
 int canStealPotion(char *stealPotion)
 {
-        __asm__ __volatile__
-        (
-        "add $0x50, %rsp \n\t"
-        "sub $0x50, %rsp \n\t"
-        );
-
-
         int len = strlen(stealPotion);
         char *potionName[4] = {"Red", "Blue", "Purple", "Yellow"};
 
@@ -96,13 +89,6 @@ int canStealPotion(char *stealPotion)
 
 void potion() // choice 2
 {
-
-        __asm__ __volatile__
-        (
-        "add $0x50, %rsp \n\t"
-        "sub $0x50, %rsp \n\t"
-        );
-
         char str[7];
 
         printf("You have decided to go to Poseion's palace to steal the potion\n\n");
@@ -132,13 +118,6 @@ void potion() // choice 2
 
 void persuade() // choice 3
 {
-
-        __asm__ __volatile__
-        (
-        "add $0x500, %rsp \n\t"
-        "sub $0x500, %rsp \n\t"
-        );
-
         char str[256];
 
         printf("Hey Human! What the hell are you doing here?\n\n");
@@ -147,14 +126,13 @@ void persuade() // choice 3
         printf("Hmm.. I have to give up my beautiful eyes if I help you. That's not what I want.\n\n");
         printf("If I do that, What will you give?\n\n");
         // 자유 입력 (여기서 버퍼 오버플로우 취약점 터짐) 
-	
+
         read(0, str, 500);
 
         write(1, str, strlen(str + 1));
 
         printf("\nHMM... Nope\n\n");
         producer();
-
 }
 
 int main()
