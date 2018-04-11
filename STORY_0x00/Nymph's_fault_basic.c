@@ -118,7 +118,7 @@ void potion() // choice 2
 
 void persuade() // choice 3
 {
-        char str[256];
+        char str[256]={0};
 
         printf("Hey Human! What the hell are you doing here?\n\n");
         printf("Your highness. Please save us.\n\n");

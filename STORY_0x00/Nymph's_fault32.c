@@ -3,31 +3,11 @@
 #include <string.h>
 
 
-void hint()
-{
-        __asm__ __volatile__
-        (
-        "pop %rdi \n\t"
-        "pop %rsi \n\t"
-        "pop %rdx \n\t"
-        "ret \n\t"
-        );
- 
-}
-
-void hent()
-{
-	__asm__ __volatile__
-	(
-	"pop %rdi \n\t"
-	"ret \n\t"
-	);
-}
 
 void producer()
 {
         printf("+++++++++++++++++++++++++++++++++++\n");
-        printf("  prod by pwnWiz, Taewoo, oiehso0\n");  
+        printf("  prod by pwnWiz, Taewoo, OIEHSOO\n");  
         printf("+++++++++++++++++++++++++++++++++++\n\n");
 }
 
@@ -39,10 +19,8 @@ int select()
         printf("2. Steal the potion from Poseidon\n");
         printf("3. Persuade Nymph to give up something at the expense of life of lotus\n\n");
         printf("What is your decision??\n\n");
-
         scanf("%d", &choice);
         printf("\n");
-
         return choice;
 }
 
@@ -57,7 +35,6 @@ void intro()
         printf("The lotus which protects city from devils finally withered and humans lost their light.\n\n");
         printf("To solve this problem, the Nymph has to be forgiven by the only god.\n\n");
         printf("Luckily, You have revealed that only way for her to be granted amnesty is that revival of the lotus.\n\n");
-
 }
 
 void ending()
@@ -77,18 +54,10 @@ void pray() // choice 1
         printf("But god said NOTHING :<\n\n");
         printf("This was the not the BEST choice.\n\n");
         producer();
-
 }
 
 int canStealPotion(char *stealPotion)
 {
-        __asm__ __volatile__
-        (
-        "add $0x50, %rsp \n\t"
-        "sub $0x50, %rsp \n\t"
-        );
-
-
         int len = strlen(stealPotion);
         char *potionName[4] = {"Red", "Blue", "Purple", "Yellow"};
 
@@ -100,13 +69,6 @@ int canStealPotion(char *stealPotion)
 
 void potion() // choice 2
 {
-
-        __asm__ __volatile__
-        (
-        "add $0x50, %rsp \n\t"
-        "sub $0x50, %rsp \n\t"
-        );
-
         char str[7];
 
         printf("You have decided to go to Poseion's palace to steal the potion\n\n");
@@ -130,46 +92,32 @@ void potion() // choice 2
                 printf("You have been put into the jail\n\n");
                 producer();
         }
-        
+
 }
 
 
 void persuade() // choice 3
 {
-
-        __asm__ __volatile__
-        (
-        "add $0x500, %rsp \n\t"
-        "sub $0x500, %rsp \n\t"
-        );
-
-        char str[256];
+        char str[256]={0};
 
         printf("Hey Human! What the hell are you doing here?\n\n");
         printf("Your highness. Please save us.\n\n");
         printf("Only with your help, we can solve this disaster.\n\n");
         printf("Hmm.. I have to give up my beautiful eyes if I help you. That's not what I want.\n\n");
         printf("If I do that, What will you give?\n\n");
-
         // 자유 입력 (여기서 버퍼 오버플로우 취약점 터짐) 
-	
+
         read(0, str, 500);
 
         write(1, str, strlen(str + 1));
 
         printf("\nHMM... Nope\n\n");
         producer();
-
 }
 
 int main()
 {
-	
         int choice;
-	
-	//setbuf(stdin, NULL);
-	//setbuf(stdout, NULL);
-	//setbuf(stderr, NULL);
 
         intro();
         choice=select();
