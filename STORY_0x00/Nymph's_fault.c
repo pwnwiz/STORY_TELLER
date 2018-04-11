@@ -171,6 +171,10 @@ int main()
 	//setbuf(stdout, NULL);
 	//setbuf(stderr, NULL);
 
+        setbuf(stdin, NULL);
+        setbuf(stdout, NULL);
+        setbuf(stderr, NULL);
+
         intro();
         choice=select();
 
